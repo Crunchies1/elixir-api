@@ -6,7 +6,7 @@ set -u
 function create_user_and_database() {
     local DB=$1
     echo "  Creating user and database '$DB'"
-    psql --port "5433" -v --username "$POSTGRES_USER" <<-EOSQL
+    psql -v --username "$POSTGRES_USER" <<-EOSQL
         CREATE DATABASE $DB;
         GRANT ALL PRIVILEGES ON DATABASE $DB TO $POSTGRES_USER;
 EOSQL

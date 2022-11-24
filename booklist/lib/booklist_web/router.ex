@@ -5,8 +5,14 @@ defmodule BooklistWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", BooklistWeb do
+  scope "/api" do
     pipe_through :api
+    forward("/",Absinthe.Plug, schema: BooklistWeb.Schema)
+  end
+
+
+  scope "/gql" do
+    forward "/GraphiQL", Absinthe.Plug.GraphiQL, schema: BooklistWeb.Schema
   end
 
   # Enables LiveDashboard only for development

@@ -3,6 +3,7 @@ defmodule BooklistWeb.Schema do
 
   @desc "A Book"
     object :book do
+      field :id, :integer
       field :name, :string
       field :author, :string
 
@@ -16,11 +17,21 @@ defmodule BooklistWeb.Schema do
   }
 
   query do
-    field :book_info, :book do
-      arg :id, non_null(:id)
-      resolve fn %{id: book_id}, _ ->
-        {:ok, @book_information[book_id]}
-      end
+    field :get_book, :book do
+      arg(:id, non_null(:id))
+      resolve(fn args, _ ->
+        {:ok, Booklist.Book.get_info!(args)}
+      end)
     end
   end
- end
+
+  mutation do
+    field :create_book, :book do
+      arg(:name, non_null(:string))
+      arg(:author, non_null(:string))
+      resolve(fn args, _ ->
+        {:ok, Booklist.Book.create_info(args)}
+      end)
+    end
+  end
+end
