@@ -35,7 +35,11 @@ defmodule Booklist.Book do
       ** (Ecto.NoResultsError)
 
   """
-  def get_info!(id), do: Repo.get!(Info, id)
+  # old code --> do: Repo.get!(Info, id)
+  def get_info!(attrs) do
+    # IO.puts(id)
+    Repo.get!(Info, attrs[:id])
+  end
 
   @doc """
   Creates a info.

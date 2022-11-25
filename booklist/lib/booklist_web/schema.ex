@@ -3,7 +3,6 @@ defmodule BooklistWeb.Schema do
 
   @desc "A Book"
     object :book do
-      field :id, :integer
       field :name, :string
       field :author, :string
 
